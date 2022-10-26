@@ -26,6 +26,10 @@ import (
 )
 
 func genPkg(lang string, p *types.Package, astFiles []*ast.File, allPkg []*types.Package, classes []*java.Class, otypes []*objc.Named) {
+	if p != nil && p.Name() == "" {
+		fmt.Printf("Skip genPkg, name is empty, path: %s\n", p.Path())
+		return
+	}
 	fname := defaultFileName(lang, p)
 	conf := &bind.GeneratorConfig{
 		Fset:   fset,
